@@ -1,6 +1,7 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import api from '../../services/api';
 import {
   Container,
   Header,
@@ -42,7 +43,7 @@ export default class User extends Component {
 
   render() {
     const { navigation } = this.props;
-    const { start } = this.state;
+    const { stars } = this.state;
     const user = navigation.getParam('user');
     return (
       <Container>
@@ -51,23 +52,22 @@ export default class User extends Component {
             source={{
               uri: user.avatar,
             }}
-          >
-            <Name>{user.name}</Name>
-            <Bio>{user.bio}</Bio>
-          </Avatar>
+          />
+          <Name>{user.name}</Name>
+          <Bio>{user.bio}</Bio>
         </Header>
         <Stars
-          data={starts}
+          data={stars}
           keyExtractor={star => `${star.id}`}
-          renderItem={({ item }) => {
+          renderItem={({ item }) => (
             <Starred>
-              <OwnerAvatar />
+              <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
               <Info>
                 <Title>{item.name}</Title>
                 <Author>{item.owner.login}</Author>
               </Info>
-            </Starred>;
-          }}
+            </Starred>
+          )}
         />
       </Container>
     );

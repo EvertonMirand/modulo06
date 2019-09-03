@@ -1,7 +1,19 @@
 import React from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
-import { Container, Header, Avatar, Name, Bio } from './styles';
+import {
+  Container,
+  Header,
+  Avatar,
+  Name,
+  Bio,
+  Stars,
+  Starred,
+  OwnerAvatar,
+  Info,
+  Title,
+  Author,
+} from './styles';
 
 // import { Container } from './styles';
 
@@ -44,6 +56,19 @@ export default class User extends Component {
             <Bio>{user.bio}</Bio>
           </Avatar>
         </Header>
+        <Stars
+          data={starts}
+          keyExtractor={star => `${star.id}`}
+          renderItem={({ item }) => {
+            <Starred>
+              <OwnerAvatar />
+              <Info>
+                <Title>{item.name}</Title>
+                <Author>{item.owner.login}</Author>
+              </Info>
+            </Starred>;
+          }}
+        />
       </Container>
     );
   }
